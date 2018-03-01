@@ -150,7 +150,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.replace(/^<|>$/g,'');
 }
 
 
@@ -165,7 +165,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -179,7 +179,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -226,7 +226,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    for (var i = 0; i < str.length; i++){
+        if ((str[i]>=65 || str[i]<=90) ||
+            (str[i]>=97 || str[i]<=122))
+            str[i]+=13
+    }
 }
 
 /**
@@ -243,7 +247,12 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    if((/^'|'$/.test(value))==false)
+        return false;
+    if (typeof(value) == 'string')
+        return true;
+    else
+        return false;
 }
 
 
