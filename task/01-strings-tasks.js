@@ -206,7 +206,23 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    var Rectangle="┌";
+    for (var i=0; i<width-2; i++)
+        Rectangle+="─";
+    Rectangle+="┐\n";
+    for(i=0; i < height-2; i++){
+        Rectangle+=("│");
+        for (var j=0; j < width-2; j++){
+            Rectangle+=" ";
+        }
+        Rectangle+="│\n";
+    }
+    Rectangle+="└";
+    for (i=0; i<width-2; i++)
+        Rectangle+="─";
+    Rectangle+="┘\n";
+    
+    return Rectangle;
 }
 
 
@@ -226,11 +242,21 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    for (var i = 0; i < str.length; i++){
-        if ((str[i]>=65 || str[i]<=90) ||
-            (str[i]>=97 || str[i]<=122))
-            str[i]+=13
+    var alphUP='ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        alphLW='abcdefghijklmnopqrstuvwxyz';
+    var res="";
+    for (var i=0; i < str.length; i++){
+        if (str.charCodeAt(i)>=65 && str.charCodeAt(i)<=90){
+           res+= alphUP[(str.charCodeAt(i)-65+13)%alphUP.length];
+           continue;
+        }
+        if (str.charCodeAt(i)>=97 && str.charCodeAt(i)<=122){
+           res+= alphLW[(str.charCodeAt(i)-97+13)%alphLW.length];
+           continue;
+        }
+        res+=str[i];
     }
+    return res;
 }
 
 /**
@@ -247,12 +273,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if((/^'|'$/.test(value))==false)
-        return false;
-    if (typeof(value) == 'string')
-        return true;
-    else
-        return false;
+    throw new Error('Not implemented');
 }
 
 
@@ -281,7 +302,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    var cards=[
+            'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+            'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+            'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+            'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠' 
+          ];
+    for (var i=0; i<cards.length; i++){
+        if (cards[i] == value)
+            return i;
+    }
 }
 
 
