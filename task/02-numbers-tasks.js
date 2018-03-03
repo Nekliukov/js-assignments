@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2 * 3.141592653589793 * radius;
+    return 2 * Math.PI * radius;
 }
 
 /**
@@ -127,7 +127,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+    var num=value.toString;
+    return num[0];
 }
 
 
