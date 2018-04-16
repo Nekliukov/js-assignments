@@ -84,7 +84,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   arr.filter(x => typeof x == String)
+   return arr.filter(x => typeof x == 'string')
 }
 
 /**
@@ -443,7 +443,13 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-   throw new Error('Not implemented');
+    let arr = new Array(n).fill(null);
+    const fill = function(e, i) {
+     e = new Array(n).fill(0);
+     e[i] = 1;
+     return e;
+    };
+    return arr.map(fill);
 }
 
 /**
@@ -460,7 +466,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   throw new Error('Not implemented');
+   return new Array(end-start+1).fill(0).map((e, i) => start + i);
 }
 
 /**
@@ -475,11 +481,11 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+   return arr.sort((a,b)=>a-b).filter((x,i,a)=>a[i+1] != a[i] );
 }
 
 /**
- * Группирует элементы переданного массива по переанной keySelector функции
+ * Группирует элементы переданного массива по переданной keySelector функции
  * и по в массивы по выбранным сгруппированным key добавляет соответствующие
  * value исходя из переданной функции valueSelector
  * Описание данной структуры: https://en.wikipedia.org/wiki/Multimap
@@ -509,7 +515,11 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+    let m = new Map();
+    array.map(function(x) {if (!m.has(keySelector(x)))
+      m.set(keySelector(x), array.filter(y => keySelector(x) === keySelector(y))
+        .map(z => valueSelector(z)))});
+    return m;
 }
 
 /**
@@ -525,7 +535,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    var newarr = [];
+    arr.map(x => newarr = newarr.concat(childrenSelector(x)));
+    return newarr;
 }
 
 /**
@@ -542,7 +554,8 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    indexes.map(x => arr = arr[x]);
+    return arr;
 }
 
 
@@ -565,7 +578,14 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+    if (arr.length < 2)
+      return arr;
+    let n = arr.length % 2;
+    let mid = Math.round(arr.length / 2);
+    if (n)
+      return arr.slice(mid).concat(arr[mid - 1]).concat(arr.slice(0, mid - 1));
+    else
+    return arr.slice(mid).concat(arr.slice(0, mid));
 }
 
 
